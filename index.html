@@ -62,84 +62,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-MyBatis" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/05/MyBatis/" class="article-date">
-  <time datetime="2019-08-04T18:05:42.000Z" itemprop="datePublished">2019-08-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/05/MyBatis/">MyBatis</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><p>是一个优秀的持久层框架，它对jdbc的操作数据库的过程进行封装，使开发者只需要关注 SQL 本身，而不需要花费精力去处理例如注册驱动、创建connection、创建statement、手动设置参数、结果集检索等jdbc繁杂的过程代码。</p>
-<h2 id="1-环境准备："><a href="#1-环境准备：" class="headerlink" title="1. 环境准备："></a>1. 环境准备：</h2><p>mybaits的代码由github.com管理，下载地址：<a href="https://github.com/mybatis/mybatis-3/releases" target="_blank" rel="noopener">https://github.com/mybatis/mybatis-3/releases</a>  </p>
-<ul>
-<li>导入jar包：<br>  asm-3.3.1.jar<br>  cglib-2.2.2.jar<br>  commons-logging-1.1.1.jar<br>  javassist-3.17.1-GA.jar<br>  log4j-1.2.17.jar<br>  log4j-api-2.0-rc1.jar<br>  log4j-core-2.0-rc1.jar<br>  mybatis-3.2.7.jar<br>  mysql-connector-java-5.1.7-bin.jar<br>  slf4j-api-1.7.5.jar<br>  slf4j-log4j12-1.7.5.jar  </li>
-<li>添加日志包<br>在classpath下创建log4j.properties如下：==【文件内容可以从mybatis-3.2.7.pdf中拷贝】==</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Global logging configuration</span><br><span class="line">log4j.rootLogger=DEBUG, stdout</span><br><span class="line"># Console output...</span><br><span class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n</span><br></pre></td></tr></table></figure>
-
-<p>日志级别在开发阶段设置成DEBUG，在生产阶段设置成INFO或者ERROR。</p>
-<h2 id="2-开发步骤"><a href="#2-开发步骤" class="headerlink" title="2. 开发步骤"></a>2. 开发步骤</h2><ul>
-<li><p>创建全局配置文件SqlMapConfig.xml；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;!-- 配置mybatis的环境信息 --&gt;</span><br><span class="line">&lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">	&lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">		&lt;!-- 配置JDBC事务控制，由mybatis进行管理 --&gt;</span><br><span class="line">		&lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;</span><br><span class="line">		&lt;!-- 配置数据源，采用dbcp连接池 --&gt;</span><br><span class="line">		&lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;</span><br><span class="line">			&lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;amp;characterEncoding=utf8&quot;/&gt;</span><br><span class="line">			&lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;</span><br><span class="line">			&lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;</span><br><span class="line">		&lt;/dataSource&gt;</span><br><span class="line">	&lt;/environment&gt;</span><br><span class="line">&lt;/environments&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--告诉mybatis加载映射文件--&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;!--第一种:写映射文件的名字--&gt;</span><br><span class="line">        &lt;!--&lt;mapper resource=&quot;com/gyf/mapper/UserMapper.xml&quot;&gt;&lt;/mapper&gt;--&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--第二种:写类名,一定要有个映射文件与之对应</span><br><span class="line">        如果没有，那么在UserMapper要声明注解--&gt;</span><br><span class="line">        &lt;!--&lt;mapper class=&quot;com.gyf.mapper.UserMapper&quot;&gt;&lt;/mapper&gt;--&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--第三种：可以写包名--&gt;</span><br><span class="line">        &lt;package name=&quot;gyf.mapper&quot;&gt;&lt;/package&gt;</span><br><span class="line">    &lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建PO类：即与数据库中的表相映射的java对象</p>
-</li>
-<li><p>创建映射文件：在classpath下，创建sqlmap文件夹。在sqlmap目录下，创建User.xml映射文件。<br>==【Mybatis的映射文件头（可以从mybatis-3.2.7.pdf文件中拷贝）】==</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper    </span><br><span class="line">PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;    </span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;!-- </span><br><span class="line">	namespace：命名空间，它的作用就是对SQL进行分类化管理，可以理解为SQL隔离</span><br><span class="line">	注意：使用mapper代理开发时，namespace有特殊且重要的作用</span><br><span class="line"> --&gt;</span><br><span class="line">&lt;mapper namespace=&quot;test&quot;&gt;</span><br><span class="line">	&lt;!-- </span><br><span class="line">		[id]：statement的id，要求在命名空间内唯一  </span><br><span class="line">		[parameterType]：入参的java类型</span><br><span class="line">		[resultType]：查询出的单条结果集对应的java类型</span><br><span class="line">		[#&#123;&#125;]： 表示一个占位符?</span><br><span class="line">		[#&#123;id&#125;]：表示该占位符待接收参数的名称为id。注意：如果参数为简单类型时，#&#123;&#125;里面的参数名称可以是任意定义</span><br><span class="line">	 --&gt;</span><br><span class="line">	&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;com.gyf.domain.User&quot;&gt;</span><br><span class="line">		SELECT * FROM USER WHERE id = #&#123;id&#125;</span><br><span class="line">	&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4></li>
-</ul>
-<p><strong>parameterType</strong>和<strong>resultType</strong><br>parameterType指定输入参数的java类型，可以填写别名或Java类的全限定名。<br>resultType指定输出结果的java类型，可以填写别名或Java类的全限定名。</p>
-<p><strong>#{}和${}</strong>  </p>
-<p>#{}：相当于预处理中的占位符？。</p>
-<p>#{}里面的参数表示接收java输入参数的名称。</p>
-<p>#{}可以接受HashMap、POJO类型的参数。<br>当接受简单类型的参数时，#{}里面可以是value，也可以是其他。</p>
-<p>#{}可以防止SQL注入。<br>${}：相当于拼接SQL串，对传入的值不做任何解释的原样输出。<br>${}会引起SQL注入，所以要谨慎使用。<br>${}可以接受HashMap、POJO类型的参数。<br>当接受简单类型的参数时，${}里面只能是value。</p>
-<p><strong>selectOne和selectList</strong><br>selectOne：只能查询0或1条记录，大于1条记录的话，会报错：<br>selectList：可以查询0或N条记录</p>
-<h2 id="3-逆向工程："><a href="#3-逆向工程：" class="headerlink" title="3. 逆向工程："></a>3. 逆向工程：</h2><p>通过数据库中的单表，自动生成java代码。</p>
-<ul>
-<li><a href="https://github.com/mybatis/generator/releases/tag/mybatis-generator-1.3.2" target="_blank" rel="noopener">https://github.com/mybatis/generator/releases/tag/mybatis-generator-1.3.2</a></li>
-<li>导入jar包：mybatis-generator-core-1.3.2.jar</li>
-<li>创建配置文件<br>在classpath下，创建==generator.xml==配置文件：（文件内容可以从逆向工程的jar包中docs目录下的index.html中找到相关代码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">	</span><br><span class="line">  &lt;context id=&quot;mysqlTable&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">  	&lt;!-- 1.数据连接参数 --&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:mysql://localhost:3306/mybatis&quot;</span><br><span class="line">        userId=&quot;root&quot;</span><br><span class="line">        password=&quot;123456&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 2.默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL </span><br><span class="line">			和 NUMERIC 类型解析为java.math.BigDecimal --&gt;</span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 3.生成模型的位置 --&gt;</span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;com.gyf.backoffice.domain&quot; targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;!-- enableSubPackages:是否让schema作为包的后缀 --&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 4.targetProject:mapper映射文件生成的位置 --&gt;</span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;com.gyf.backoffice.mapper&quot;  targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;!-- enableSubPackages:是否让schema作为包的后缀 --&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 5. targetPackage：mapper接口生成的位置 --&gt;</span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;com.gyf.backoffice.mapper&quot;  </span><br><span class="line">   		 targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 6.要生成的表 --&gt;</span><br><span class="line">    &lt;table tableName=&quot;items&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;orderdetail&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;orders&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;user&quot;/&gt;</span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">```  </span><br><span class="line">- 使用java类来执行逆向工程</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>public class Generator {<br>    public static void main(String[] args)  throws Exception{<br>        List<string> warnings = new ArrayList<string>();<br>        boolean overwrite = true;<br>        File configFile = new File(“config/generator.xml”);<br>        ConfigurationParser cp = new ConfigurationParser(warnings);<br>        Configuration config = cp.parseConfiguration(configFile);<br>        DefaultShellCallback callback = new DefaultShellCallback(overwrite);<br>        MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,<br>                callback, warnings);<br>        myBatisGenerator.generate(null);<br>    }<br>}</string></string></p>
-<pre><code>mybatis逆向工程运行成功却没有生成相应的包和文件  
-解决办法  
-原因：逆向工程中的路径问题，windows和mac等的文件系统路径不同
-mac和Linux下应该使用./，windows下应该使用.\</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/05/MyBatis/" data-id="cjyxadtyk0001vax7do75ymm0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/04/hello-world/" class="article-date">
@@ -179,7 +101,7 @@ mac和Linux下应该使用./，windows下应该使用.\</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/04/hello-world/" data-id="cjyxadtyr0002vax7v8z89kh7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/04/hello-world/" data-id="cjyxamhnx0001w8x7659qf2b2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -218,10 +140,6 @@ mac和Linux下应该使用./，windows下应该使用.\</code></pre>
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2019/08/05/MyBatis/">MyBatis</a>
-          </li>
         
           <li>
             <a href="/2019/08/04/hello-world/">Hello World</a>
