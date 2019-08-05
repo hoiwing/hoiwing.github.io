@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Oscache缓存机制 | Hoiwing&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Oscache,ssm的Oscache">
+<meta name="keywords" content="Oscache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oscache缓存机制">
+<meta property="og:url" content="http://yoursite.com/2019/07/05/SSM的Oscache页面缓存/index.html">
+<meta property="og:site_name" content="Hoiwing&#39;s Blog">
+<meta property="og:description" content="Oscache,ssm的Oscache">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-05T13:05:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oscache缓存机制">
+<meta name="twitter:description" content="Oscache,ssm的Oscache">
+  
+    <link rel="alternate" href="/atom.xml" title="Hoiwing&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hoiwing&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hoiwing的程序员之旅</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SSM的Oscache页面缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/SSM的Oscache页面缓存/" class="article-date">
+  <time datetime="2019-07-05T13:02:31.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Oscache/">Oscache</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Oscache缓存机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="导入jar包"><a href="#导入jar包" class="headerlink" title="导入jar包"></a>导入jar包</h2><p>ocache-x.x.x.jar<br>commons-logging.jar</p>
+<h2 id="在index-jsp中测试"><a href="#在index-jsp中测试" class="headerlink" title="在index.jsp中测试 :"></a>在index.jsp中测试 :</h2><p>需要添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@taglib uri=&quot;http://www.opensymphony.com/oscache&quot; prefix=&quot;o&quot;%&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">现在的时间：&lt;%=new Date()%&gt;&lt;br&gt;</span><br><span class="line">&lt;ocache&gt;</span><br><span class="line">缓存的时间：&lt;%=new Date()%&gt;</span><br><span class="line">&lt;/ocache&gt;</span><br><span class="line"> &lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得出两个时间是不同的  </p>
+<h2 id="缓存的作用域"><a href="#缓存的作用域" class="headerlink" title="缓存的作用域"></a>缓存的作用域</h2><p>缓存默认存储在application域当中，可更改缓存数据。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ocache scope=&quot;session&quot;&gt;</span><br><span class="line">缓存的时间：&lt;%=new Date()%&gt;</span><br><span class="line">&lt;/ocache&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样，不同浏览器访问时，缓存时间是不一样的，如果是application,不同浏览器访问同一个路径时，时间是一样的  </p>
+<h4 id="也可以设置缓存更新："><a href="#也可以设置缓存更新：" class="headerlink" title="也可以设置缓存更新："></a>也可以设置缓存更新：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;ocache time=&quot;4&quot;&gt;</span><br><span class="line">&lt;!-- 每4秒更新一次缓存--&gt;</span><br><span class="line">缓存的时间：&lt;%=new Date()%&gt;</span><br><span class="line">&lt;/ocache&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="缓存持久化"><a href="#缓存持久化" class="headerlink" title="缓存持久化"></a>缓存持久化</h3><p>创建oscache.properties这个配置文件必须在classpath下面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cache.memory=false</span><br><span class="line">cache.persistence.class=com.opensymphony.oscache.plugins.diskpersistence.DiskPersistenceListener</span><br><span class="line">cache.path=C:\\test</span><br></pre></td></tr></table></figure>
+
+<p>访问路径后会在test的application中创建缓存文件</p>
+<h2 id="Oscache整合ssm项目"><a href="#Oscache整合ssm项目" class="headerlink" title="Oscache整合ssm项目"></a>Oscache整合ssm项目</h2><p>在web.xml中配置页面缓存：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置页面缓存 --&gt;</span><br><span class="line">	&lt;filter&gt;</span><br><span class="line">		&lt;filter-name&gt;oscache&lt;/filter-name&gt;	&lt;filter-class&gt;com.opensymphony.oscache.web.filter.CacheFilter&lt;/filter-class&gt;</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;time&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;3600&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;scope&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;application&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">	&lt;/filter&gt;</span><br><span class="line"></span><br><span class="line">	&lt;filter-mapping&gt;</span><br><span class="line">		&lt;filter-name&gt;oscache&lt;/filter-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/items/*&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/SSM的Oscache页面缓存/" data-id="cjyye5wyc0003zhx72crmwuiw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Oscache/">Oscache</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/14/MyBatis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MyBatis的开始
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/05/Spring的AOP.md/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spring的AOP</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Oscache/">Oscache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oscache/">Oscache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSM/">SSM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringAOP/">SpringAOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MyBatis/" style="font-size: 15px;">MyBatis</a> <a href="/tags/Oscache/" style="font-size: 10px;">Oscache</a> <a href="/tags/SSM/" style="font-size: 10px;">SSM</a> <a href="/tags/Spring/" style="font-size: 20px;">Spring</a> <a href="/tags/SpringAOP/" style="font-size: 10px;">SpringAOP</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/18/SSM框架的整合/">SSM框架整合</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/14/MyBatis/">MyBatis的开始</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/05/SSM的Oscache页面缓存/">Oscache缓存机制</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/05/Spring的AOP.md/">Spring的AOP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/03/Spring的实例化/">Spring的实例化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hoiwing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

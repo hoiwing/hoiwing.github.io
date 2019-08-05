@@ -5,15 +5,20 @@
   
 
   
-  <title>Category: MyBatis | Hoiwing&#39;s Blog</title>
+  <title>搭建Spring | Hoiwing&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hoiwing&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/categories/MyBatis/index.html">
+  <meta name="description" content="Spring,IOC">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建Spring">
+<meta property="og:url" content="http://yoursite.com/2019/06/28/Spring/index.html">
 <meta property="og:site_name" content="Hoiwing&#39;s Blog">
+<meta property="og:description" content="Spring,IOC">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-05T13:01:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hoiwing&#39;s Blog">
+<meta name="twitter:title" content="搭建Spring">
+<meta name="twitter:description" content="Spring,IOC">
   
     <link rel="alternate" href="/atom.xml" title="Hoiwing&#39;s Blog" type="application/atom+xml">
   
@@ -64,40 +69,70 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/07/14/MyBatis/" class="archive-article-date">
-  <time datetime="2019-07-14T07:30:16.000Z" itemprop="datePublished">Jul 14</time>
+        <section id="main"><article id="post-Spring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/28/Spring/" class="article-date">
+  <time datetime="2019-06-28T13:20:05.000Z" itemprop="datePublished">2019-06-28</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/14/MyBatis/">MyBatis的开始</a>
+    <h1 class="article-title" itemprop="name">
+      搭建Spring
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><p>Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，由Rod Johnson 在其著作Expert One-On-One J2EE Development and Design中阐述的部分理念和原型衍生而来。它是为了解决企业应用开发的复杂性而创建的。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。然而，Spring的用途不仅限于服务器端的开发。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益<br>简单来说，Spring是一个轻量级的控制反转（IoC）和面向切面（AOP）的容器框架。</p>
+<h2 id="1-导入核心包"><a href="#1-导入核心包" class="headerlink" title="1. 导入核心包"></a>1. 导入核心包</h2><p>spring-framework-4.2.0.RELEASE中的：<br>spring-core-3.2.2.RELEASE.jar<br>spring-beans-3.2.2.RELEASE.jar<br>spring-context-3.2.2.RELEASE.jar<br>spring-expression-3.2.2.RELEASE.jar<br>com.springsource.org.apache.commons.logging-1.1.1.jar</p>
+<h2 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2. 配置文件"></a>2. 配置文件</h2><p>beans.xml，配置文件的约束可以访问：<br>spring-framework-3.2.0.RC2-docs/reference/html/xsd-config.html网页查看  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;</span><br><span class="line">http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;userService&quot; class=&quot;gyf.service.UserServiceImpl&quot;&gt;&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br><span class="line">```  </span><br><span class="line">从beans.xml获取bean：</span><br></pre></td></tr></table></figure>
 
+<p>public class testSpring {<br>    @Test<br>    public void test1(){<br>        ApplicationContext context = new ClassPathXmlApplicationContext(“bean.xml”);<br>        UserService service = (UserService) context.getBean(“userService”);<br>        service.add();<br>    }<br>}</p>
+<pre><code>## 总结：【IoC】
+IoC Inverse of Control 反转控制的概念，就是将原本在程序中手动创建UserService对象的控制权，交由Spring框架管理，简单说，就是创建UserService对象控制权被反转到了Spring框架
+
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/28/Spring/" data-id="cjyye5wye0004zhx7c48ucm3s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/02/SpringMVC.md/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          记录第一次使用SpringMVC
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
 
 </section>
         

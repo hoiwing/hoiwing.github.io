@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>记录第一次使用SpringMVC | Hoiwing&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Spring,SpringMVC">
+<meta name="keywords" content="Spring,SpringMVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录第一次使用SpringMVC">
+<meta property="og:url" content="http://yoursite.com/2019/07/02/SpringMVC.md/index.html">
+<meta property="og:site_name" content="Hoiwing&#39;s Blog">
+<meta property="og:description" content="Spring,SpringMVC">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-05T13:09:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记录第一次使用SpringMVC">
+<meta name="twitter:description" content="Spring,SpringMVC">
+  
+    <link rel="alternate" href="/atom.xml" title="Hoiwing&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hoiwing&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hoiwing的程序员之旅</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SpringMVC.md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/02/SpringMVC.md/" class="article-date">
+  <time datetime="2019-07-02T11:42:53.000Z" itemprop="datePublished">2019-07-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SpringMVC/">SpringMVC</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      记录第一次使用SpringMVC
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h1><ul>
+<li><p>Spring MVC是Spring提供的一个强大而灵活的web框架。借助于注解，Spring MVC提供了几乎是POJO的开发模式，使得控制器的开发和测试更加简单。这些控制器一般不直接处理请求，而是将其委托给Spring上下文中的其他bean，通过Spring的依赖注入功能，这些bean被注入到控制器中。</p>
+</li>
+<li><p>Spring MVC主要由DispatcherServlet、处理器映射【找控制器】、适配器【调用控制器的方法】、控制器【业务】、视图解析器、视图组成。</p>
+</li>
+</ul>
+<h1 id="2-SpringMVC的配置"><a href="#2-SpringMVC的配置" class="headerlink" title="2.SpringMVC的配置"></a>2.SpringMVC的配置</h1><ol>
+<li>导入jar包：<br>com.springsource.org.aopalliance-1.0.0.jar<br>com.springsource.org.apache.commons.logging-1.1.1.jar<br>com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar<br>log4j-1.2.16.jar<br>spring-aop-3.2.0.RC2.jar<br>spring-aspects-3.2.0.RC2.jar<br>spring-beans-3.2.0.RC2.jar<br>spring-context-3.2.0.RC2.jar<br>spring-core-3.2.0.RC2.jar<br>spring-expression-3.2.0.RC2.jar<br>spring-jdbc-3.2.0.RC2.jar<br>spring-orm-3.2.0.RC2-sources.jar<br>spring-test-3.2.0.RC2.jar<br>spring-tx-3.2.0.RC2.jar<br>spring-web-3.2.0.RC2.jar<br>spring-webmvc-3.2.0.RC2.jar  </li>
+<li>在web.xml配置DispatcherServlet  </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">       &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;</span><br><span class="line">       &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;</span><br><span class="line">       &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">   &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">   &lt;servlet-mapping&gt;</span><br><span class="line">       &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;</span><br><span class="line">       &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;</span><br><span class="line">   &lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在WEB-INF目录下创建DispatcherServlet-servlet.xml</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">	xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">	xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot; xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans </span><br><span class="line">		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd </span><br><span class="line">		http://www.springframework.org/schema/mvc </span><br><span class="line">		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd </span><br><span class="line">		http://www.springframework.org/schema/context </span><br><span class="line">		http://www.springframework.org/schema/context/spring-context-3.2.xsd </span><br><span class="line">		http://www.springframework.org/schema/aop </span><br><span class="line">		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd </span><br><span class="line">		http://www.springframework.org/schema/tx </span><br><span class="line">		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd&quot;&gt;</span><br><span class="line">		&lt;!-- 1. 配置处理器映射，springmvc默认的处理器映射器</span><br><span class="line">			 BeanNameUrlHandlerMapping:根据bean的name属性的url去找handlerController --&gt;</span><br><span class="line">		&lt;bean class=&quot;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&quot;/&gt;</span><br><span class="line">		&lt;!-- 2. 配置处理器适配置器执行Controller --&gt;</span><br><span class="line">		&lt;bean class=&quot;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&quot;/&gt;</span><br><span class="line">		&lt;!-- 3.配置一个控制器 --&gt;</span><br><span class="line">		&lt;bean name=&quot;/user.do&quot; class=&quot;com.springmvc.backoffice.web.controller.UserController&quot;/&gt;</span><br><span class="line">		&lt;!-- 4.配置springmvc视图解析器</span><br><span class="line">			视图解析器解析的视频路径为：前缀 + 后缀 --&gt;</span><br><span class="line">		&lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/views&quot;/&gt;</span><br><span class="line">			&lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">		&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>创建个Controller控制器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">public class UserController implements Controller&#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception &#123;</span><br><span class="line"></span><br><span class="line">        ModelAndView mav = new ModelAndView(&quot;user/userlist&quot;);</span><br><span class="line"></span><br><span class="line">        mav.addObject(&quot;name&quot;,&quot;springmvc&quot;);</span><br><span class="line">        return mav;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="SpringMVC的拦截器"><a href="#SpringMVC的拦截器" class="headerlink" title="SpringMVC的拦截器"></a>SpringMVC的拦截器</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class LoginInterceptor implements HandlerInterceptor&#123;</span><br><span class="line">	//controller执行后且视图返回后调用此方法</span><br><span class="line">	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)</span><br><span class="line">			throws Exception &#123;</span><br><span class="line">		System.out.println(&quot;返回视图前  后处理&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	//controller执行后但未返回视图前调用此方法</span><br><span class="line">	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)</span><br><span class="line">			throws Exception &#123;</span><br><span class="line">		System.out.println(&quot;未返回视图前 后处理....&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// controller执行前调用此方法</span><br><span class="line">	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception &#123;</span><br><span class="line">		System.out.println(&quot;预处理....&quot;);</span><br><span class="line">		//在此设置拦截的条件</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DispatcherServlet-servlet-xml添加登录拦截器配置："><a href="#DispatcherServlet-servlet-xml添加登录拦截器配置：" class="headerlink" title="DispatcherServlet-servlet.xml添加登录拦截器配置："></a>DispatcherServlet-servlet.xml添加登录拦截器配置：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置拦截器 --&gt;</span><br><span class="line">&lt;mvc:interceptors&gt;</span><br><span class="line">    &lt;!-- 登录拦截器 --&gt;</span><br><span class="line">    &lt;mvc:interceptor&gt;</span><br><span class="line">        &lt;mvc:mapping path=&quot;/**&quot;/&gt;</span><br><span class="line">        &lt;!-- 添加拦截器的路径 --&gt;</span><br><span class="line">        &lt;bean class=&quot;com.springmvc.backoffice.web.interceptor.LoginInterceptor&quot;/&gt;</span><br><span class="line">    &lt;/mvc:interceptor&gt;</span><br><span class="line">&lt;/mvc:interceptors&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/02/SpringMVC.md/" data-id="cjyyetrma000q23x73lumqy03" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/03/Spring的实例化/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Spring的实例化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/28/Spring/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">搭建Spring</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Oscache/">Oscache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oscache/">Oscache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSM/">SSM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringAOP/">SpringAOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MyBatis/" style="font-size: 15px;">MyBatis</a> <a href="/tags/Oscache/" style="font-size: 10px;">Oscache</a> <a href="/tags/SSM/" style="font-size: 10px;">SSM</a> <a href="/tags/Spring/" style="font-size: 20px;">Spring</a> <a href="/tags/SpringAOP/" style="font-size: 10px;">SpringAOP</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/18/SSM框架的整合/">SSM框架整合</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/14/MyBatis/">MyBatis的开始</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/05/SSM的Oscache页面缓存/">Oscache缓存机制</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/05/Spring的AOP.md/">Spring的AOP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/03/Spring的实例化/">Spring的实例化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hoiwing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

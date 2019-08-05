@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Spring的AOP | Hoiwing&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Spring,Spring的AOP,事务管理">
+<meta name="keywords" content="Spring,SpringAOP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring的AOP">
+<meta property="og:url" content="http://yoursite.com/2019/07/05/Spring的AOP.md/index.html">
+<meta property="og:site_name" content="Hoiwing&#39;s Blog">
+<meta property="og:description" content="Spring,Spring的AOP,事务管理">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-05T13:04:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring的AOP">
+<meta name="twitter:description" content="Spring,Spring的AOP,事务管理">
+  
+    <link rel="alternate" href="/atom.xml" title="Hoiwing&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hoiwing&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hoiwing的程序员之旅</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Spring的AOP.md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/Spring的AOP.md/" class="article-date">
+  <time datetime="2019-07-05T13:02:31.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring的AOP
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-AOP概述"><a href="#1-AOP概述" class="headerlink" title="1.AOP概述"></a>1.AOP概述</h1><ul>
+<li>AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。  </li>
+<li>利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率</li>
+</ul>
+<h1 id="2-AOP术语"><a href="#2-AOP术语" class="headerlink" title="2.AOP术语"></a>2.AOP术语</h1><ul>
+<li>target：目标类，需要被代理的类。例如：UserService</li>
+<li>Joinpoint(连接点):所谓连接点是指那些可能被拦截到的方法。例如：所有的方法</li>
+<li>PointCut 切入点：已经被增强的连接点。例如：addUser()</li>
+<li>advice 通知/增强，增强代码。例如：after、before</li>
+<li>Weaving(织入):是指把增强advice应用到目标对象target来创建新的代理对象proxy的过程.</li>
+<li>proxy 代理类</li>
+<li>Aspect(切面): 是切入点pointcut和通知advice的结合<br> 一个线是一个特殊的面。<br> 一个切入点和一个通知，组成成一个特殊的面。  </li>
+</ul>
+<h1 id="3-AOP的配置"><a href="#3-AOP的配置" class="headerlink" title="3.AOP的配置"></a>3.AOP的配置</h1><ol>
+<li><p>导入jar包：<br>pring-framework-3.0.2.RELEASE-dependencies\org.aspectj\com.springsource.org.aspectj.weaver\1.6.8.RELEASE</p>
+</li>
+<li><p>Spring 的AOP配置<br>以下为全自动编程方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!--xmlns xml namespace:xml命名空间--&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:p =&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">       xmlns:context =&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xmlns:aop =&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">                           http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">                           http://www.springframework.org/schema/context</span><br><span class="line">                           http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">                           http://www.springframework.org/schema/aop</span><br><span class="line">                           http://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!--  配置UserService--&gt;</span><br><span class="line">    &lt;bean id=&quot;userService&quot; class=&quot;com.spring.service.UserServiceImpl&quot;&gt;&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置切面对象--&gt;</span><br><span class="line">    &lt;bean id=&quot;myAspect3&quot; class=&quot;com.spring.aspect.MyAspect3&quot;&gt;&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置 aop --&gt;</span><br><span class="line">    &lt;aop:config&gt;</span><br><span class="line">        &lt;!-- aop:指定切面--&gt;</span><br><span class="line">        &lt;aop:aspect ref=&quot;myAspect3&quot;&gt;</span><br><span class="line">            &lt;!--定义一个切入点--&gt;</span><br><span class="line">            &lt;aop:pointcut id=&quot;myPointcut&quot; expression=&quot;execution(* com.spring.service.UserServiceImpl.*(..))&quot;/&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!-- 配置前置通知...--&gt;</span><br><span class="line">            &lt;!--&lt;aop:before method=&quot;myBefore&quot; pointcut-ref=&quot;myPointcut&quot; /&gt;--&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!--&lt;aop:after-returning method=&quot;myAfterReturning&quot; pointcut-ref=&quot;myPointcut&quot;/&gt;--&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!--配置环绕通知--&gt;</span><br><span class="line">            &lt;aop:around method=&quot;myAround&quot; pointcut-ref=&quot;myPointcut&quot;&gt;&lt;/aop:around&gt;</span><br><span class="line">        &lt;/aop:aspect&gt;</span><br><span class="line">    &lt;/aop:config&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import org.aopalliance.intercept.MethodInterceptor;</span><br><span class="line">import org.aopalliance.intercept.MethodInvocation;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 切面类：增加代码 与 切入点 结合</span><br><span class="line"> */</span><br><span class="line">public class MyAspect implements MethodInterceptor&#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object invoke(MethodInvocation mi) throws Throwable &#123;</span><br><span class="line">        //拦截方法</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;开启事务...&quot;);</span><br><span class="line">        //放行</span><br><span class="line">        Object retObj = mi.proceed();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;拦截.....&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;提交事务...&quot;);</span><br><span class="line"></span><br><span class="line">        return retObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class testSpring &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test1()&#123;</span><br><span class="line">        String xmlPath = &quot;com/spring/beans.xml&quot;</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(xmlPath);</span><br><span class="line">        UserService service = (UserService) context.getBean(&quot;userService&quot;);</span><br><span class="line">        service.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-基本AOP的事务配置"><a href="#4-基本AOP的事务配置" class="headerlink" title="4.基本AOP的事务配置"></a>4.基本AOP的事务配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line"></span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">                           http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">                           http://www.springframework.org/schema/context</span><br><span class="line">                           http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">                           http://www.springframework.org/schema/aop</span><br><span class="line">                           http://www.springframework.org/schema/aop/spring-aop.xsd</span><br><span class="line">                           http://www.springframework.org/schema/tx</span><br><span class="line">                           http://www.springframework.org/schema/tx/spring-tx.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 使用spring的aop标签配置--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 1.配置通知事务管理器--&gt;</span><br><span class="line">    &lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;txManager&quot;&gt;</span><br><span class="line">        &lt;tx:attributes&gt;</span><br><span class="line">            &lt;tx:method name=&quot;transfer&quot; propagation=&quot;REQUIRED&quot; isolation=&quot;DEFAULT&quot;/&gt;</span><br><span class="line">        &lt;/tx:attributes&gt;</span><br><span class="line">    &lt;/tx:advice&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 2.事务与切入点关联 --&gt;</span><br><span class="line">    &lt;aop:config&gt;</span><br><span class="line">        &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut=&quot;execution(* gyf.service..*.*(..))&quot;&gt;&lt;/aop:advisor&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/aop:config&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>测试同上</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/Spring的AOP.md/" data-id="cjyye5wyg0005zhx7qtoz8fqy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringAOP/">SpringAOP</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/05/SSM的Oscache页面缓存/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Oscache缓存机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/03/Spring的实例化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spring的实例化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Oscache/">Oscache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oscache/">Oscache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSM/">SSM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringAOP/">SpringAOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MyBatis/" style="font-size: 15px;">MyBatis</a> <a href="/tags/Oscache/" style="font-size: 10px;">Oscache</a> <a href="/tags/SSM/" style="font-size: 10px;">SSM</a> <a href="/tags/Spring/" style="font-size: 20px;">Spring</a> <a href="/tags/SpringAOP/" style="font-size: 10px;">SpringAOP</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/18/SSM框架的整合/">SSM框架整合</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/14/MyBatis/">MyBatis的开始</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/05/SSM的Oscache页面缓存/">Oscache缓存机制</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/05/Spring的AOP.md/">Spring的AOP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/03/Spring的实例化/">Spring的实例化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hoiwing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
