@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -40,8 +40,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
   };
 </script>
@@ -53,8 +53,8 @@
 <meta property="og:url" content="http://yoursite.com/2019/07/14/MyBatis/index.html">
 <meta property="og:site_name" content="Hoiwing&#39;s Blog">
 <meta property="og:description" content="MyBatis,逆向工程">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-05T13:00:02.000Z">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-18T04:18:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyBatis的开始">
 <meta name="twitter:description" content="MyBatis,逆向工程">
@@ -75,6 +75,15 @@
   
 
 
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d17c69d451976ba5fe6a7b421654991d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -123,7 +132,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -137,17 +146,57 @@
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -170,7 +219,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/14/MyBatis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -192,22 +241,22 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2019-07-14 15:30:16" itemprop="dateCreated datePublished" datetime="2019-07-14T15:30:16+08:00">2019-07-14</time>
+              <time title="创建时间：2019-07-14 15:30:16" itemprop="dateCreated datePublished" datetime="2019-07-14T15:30:16+08:00">2019-07-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-05 21:00:02" itemprop="dateModified" datetime="2019-08-05T21:00:02+08:00">2019-08-05</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-18 12:18:55" itemprop="dateModified" datetime="2019-12-18T12:18:55+08:00">2019-12-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/MyBatis/" itemprop="url" rel="index">
                     <span itemprop="name">MyBatis</span>
@@ -251,30 +300,49 @@
 <li><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4></li>
 </ul>
 <p><strong>parameterType</strong>和<strong>resultType</strong><br>parameterType指定输入参数的java类型，可以填写别名或Java类的全限定名。<br>resultType指定输出结果的java类型，可以填写别名或Java类的全限定名。</p>
-<p><strong>#{}和${}</strong>  </p>
-<p>#{}：相当于预处理中的占位符？。</p>
-<p>#{}里面的参数表示接收java输入参数的名称。</p>
-<p>#{}可以接受HashMap、POJO类型的参数。<br>当接受简单类型的参数时，#{}里面可以是value，也可以是其他。</p>
-<p>#{}可以防止SQL注入。<br>${}：相当于拼接SQL串，对传入的值不做任何解释的原样输出。<br>${}会引起SQL注入，所以要谨慎使用。<br>${}可以接受HashMap、POJO类型的参数。<br>当接受简单类型的参数时，${}里面只能是value。</p>
+<p><strong>#{}和${}</strong><br>#{}：相当于预处理中的占位符？。<br>#{}里面的参数表示接收java输入参数的名称。<br>#{}可以接受HashMap、POJO类型的参数。<br>当接受简单类型的参数时，#{}里面可以是value，也可以是其他。<br>#{}可以防止SQL注入。<br>${}：相当于拼接SQL串，对传入的值不做任何解释的原样输出。<br>${}会引起SQL注入，所以要谨慎使用。<br>${}可以接受HashMap、POJO类型的参数。<br>当接受简单类型的参数时，${}里面只能是value。</p>
 <p><strong>selectOne和selectList</strong><br>selectOne：只能查询0或1条记录，大于1条记录的话，会报错：<br>selectList：可以查询0或N条记录</p>
 <h2 id="3-逆向工程："><a href="#3-逆向工程：" class="headerlink" title="3. 逆向工程："></a>3. 逆向工程：</h2><p>通过数据库中的单表，自动生成java代码。</p>
 <ul>
-<li><a href="https://github.com/mybatis/generator/releases/tag/mybatis-generator-1.3.2" target="_blank" rel="noopener">https://github.com/mybatis/generator/releases/tag/mybatis-generator-1.3.2</a></li>
-<li>导入jar包：mybatis-generator-core-1.3.2.jar</li>
-<li>创建配置文件<br>在classpath下，创建==generator.xml==配置文件：（文件内容可以从逆向工程的jar包中docs目录下的index.html中找到相关代码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">	</span><br><span class="line">  &lt;context id=&quot;mysqlTable&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">  	&lt;!-- 1.数据连接参数 --&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:mysql://localhost:3306/mybatis&quot;</span><br><span class="line">        userId=&quot;root&quot;</span><br><span class="line">        password=&quot;123456&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 2.默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL </span><br><span class="line">			和 NUMERIC 类型解析为java.math.BigDecimal --&gt;</span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 3.生成模型的位置 --&gt;</span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;com.mybatis.backoffice.domain&quot; targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;!-- enableSubPackages:是否让schema作为包的后缀 --&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 4.targetProject:mapper映射文件生成的位置 --&gt;</span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;com.mybatis.backoffice.mapper&quot;  targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;!-- enableSubPackages:是否让schema作为包的后缀 --&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 5. targetPackage：mapper接口生成的位置 --&gt;</span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;com.mybatis.backoffice.mapper&quot;  </span><br><span class="line">   		 targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 6.要生成的表 --&gt;</span><br><span class="line">    &lt;table tableName=&quot;items&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;orderdetail&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;orders&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;user&quot;/&gt;</span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">```  </span><br><span class="line">- 使用java类来执行逆向工程</span><br></pre></td></tr></table></figure>
-
+<li><p><a href="https://github.com/mybatis/generator/releases/tag/mybatis-generator-1.3.2" target="_blank" rel="noopener">https://github.com/mybatis/generator/releases/tag/mybatis-generator-1.3.2</a></p>
+</li>
+<li><p>导入jar包：mybatis-generator-core-1.3.2.jar</p>
+</li>
+<li><p>创建配置文件<br>在classpath下，创建==generator.xml==配置文件：（文件内容可以从逆向工程的jar包中docs目录下的index.html中找到相关代码  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">	</span><br><span class="line">  &lt;context id=&quot;mysqlTable&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">  	&lt;!-- 1.数据连接参数 --&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:mysql://localhost:3306/mybatis&quot;</span><br><span class="line">        userId=&quot;root&quot;</span><br><span class="line">        password=&quot;123456&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 2.默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL </span><br><span class="line">			和 NUMERIC 类型解析为java.math.BigDecimal --&gt;</span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 3.生成模型的位置 --&gt;</span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;com.mybatis.backoffice.domain&quot; targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;!-- enableSubPackages:是否让schema作为包的后缀 --&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 4.targetProject:mapper映射文件生成的位置 --&gt;</span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;com.mybatis.backoffice.mapper&quot;  targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;!-- enableSubPackages:是否让schema作为包的后缀 --&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 5. targetPackage：mapper接口生成的位置 --&gt;</span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;com.mybatis.backoffice.mapper&quot;  </span><br><span class="line">   		 targetProject=&quot;.\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 6.要生成的表 --&gt;</span><br><span class="line">    &lt;table tableName=&quot;items&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;orderdetail&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;orders&quot;/&gt;</span><br><span class="line">	&lt;table tableName=&quot;user&quot;/&gt;</span><br><span class="line">  &lt;/context&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用java类来执行逆向工程</p>
 </li>
 </ul>
-<p>public class Generator {<br>    public static void main(String[] args)  throws Exception{<br>        List<string> warnings = new ArrayList<string>();<br>        boolean overwrite = true;<br>        File configFile = new File(“config/generator.xml”);<br>        ConfigurationParser cp = new ConfigurationParser(warnings);<br>        Configuration config = cp.parseConfiguration(configFile);<br>        DefaultShellCallback callback = new DefaultShellCallback(overwrite);<br>        MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,<br>                callback, warnings);<br>        myBatisGenerator.generate(null);<br>    }<br>}</string></string></p>
-<pre><code>==mybatis逆向工程运行成功却没有生成相应的包和文件==  
-解决办法  
-原因：逆向工程中的路径问题，windows和mac等的文件系统路径不同
-mac和Linux下应该使用./，windows下应该使用.\</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Generator &#123;</span><br><span class="line">	public static void main(String[] args)  throws Exception&#123;</span><br><span class="line">		List&lt;String&gt; warnings = new ArrayList&lt;String&gt;();</span><br><span class="line">		boolean overwrite = true;</span><br><span class="line">		File configFile = new File(&quot;config/generator.xml&quot;);</span><br><span class="line">		ConfigurationParser cp = new ConfigurationParser(warnings);</span><br><span class="line">		Configuration config = cp.parseConfiguration(configFile);</span><br><span class="line">		DefaultShellCallback callback = new DefaultShellCallback(overwrite);</span><br><span class="line">		MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,</span><br><span class="line">				callback, warnings);</span><br><span class="line">		myBatisGenerator.generate(null);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>==mybatis逆向工程运行成功却没有生成相应的包和文件==<br>解决办法<br>原因：逆向工程中的路径问题，windows和mac等的文件系统路径不同<br>mac和Linux下应该使用./，windows下应该使用.\</p>
+
     </div>
 
     
     
     
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpeg" alt="Hoiwing 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="Hoiwing 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
 
       <footer class="post-footer">
           <div class="post-tags">
@@ -344,10 +412,10 @@ mac和Linux下应该使用./，windows下应该使用.\</code></pre>
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -368,19 +436,28 @@ mac和Linux下应该使用./，windows下应该使用.\</code></pre>
           <a href="/archives/">
         
           <span class="site-state-item-count">7</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
         <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hoiwing" title="GitHub → https://github.com/hoiwing" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
@@ -407,10 +484,10 @@ mac和Linux下应该使用./，windows下应该使用.\</code></pre>
   </span>
   <span class="author" itemprop="copyrightHolder">Hoiwing</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.6.0
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.6.0
   </div>
 
         
@@ -440,6 +517,8 @@ mac和Linux下应该使用./，windows下应该使用.\</code></pre>
 
 
 
+
+  <script src="/js/local-search.js"></script>
 
 
 
